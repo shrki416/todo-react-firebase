@@ -10,9 +10,11 @@ function App() {
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    db.collection("todos").onSnapshot((snapshot) => {
-      setTodos(snapshot.docs.map((doc) => doc.data().todo));
-    });
+    db.collection("todos")
+      .orderBy("timestam", "desc")
+      .onSnapshot((snapshot) => {
+        setTodos(snapshot.docs.map((doc) => doc.data().todo));
+      });
   }, []);
 
   const addTodo = (e) => {
